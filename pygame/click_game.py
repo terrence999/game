@@ -1,16 +1,25 @@
-character = Actor ('face')
-character.pos = 100, 56
+WIDTH = 400
+HEIGHT = 400
+score = 0
+game_over = False
+fox = Actor("fox")
+fox.pos = 100, 100
 
-WIDTH = 500
-HEIGHT = character.height + 20
-
-def draw():
-    screen.clear()
-    character.draw()
-
+coin = Actor("coin")
+coin.pos = 200, 200
 def update():
-    character.left = character.left + 2
-    if character.left > WIDTH:
-        character.right = 0
-# Write your code here :-)
-# Write your code here :-)
+    global score
+    if keyboard.left:
+        fox.x = fox.x - 2
+    elif keyboard.right:
+        fox.x = fox.x + 2
+    elif keyboard.up:
+        fox.y = fox.y - 2
+    elif keyboard.down:
+        fox.y = fox.y + 2
+    coin_collected = fox.colliderect(coin)
+    if coin_collected:
+        score = score + 10
+        place_coin()
+clock.schedule(time_up, 7.0)
+place_coin()
